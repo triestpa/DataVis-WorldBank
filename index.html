@@ -1,0 +1,110 @@
+
+
+<html>
+<head>
+ 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+ 	<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+	<script type='text/javascript'>
+	google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motionchart']});
+	google.setOnLoadCallback(drawRegionsMap);
+
+	function drawRegionsMap() {
+		queryWorldBank();
+	};
+
+	function done(){}
+
+	function queryWorldBank() {
+
+		url = "http://api.worldbank.org/countries/indicators/IT.NET.USER.P2?per_page=5000&date=2000:2012&format=jsonP&prefix=?";
+
+		$.ajax({
+	            type: "GET",
+	            url: url,
+	            async: true,
+        		cache: false,
+        		jsonpCallback: "done",    
+        		contentType: "text/json; charset=utf-8",
+        		dataType: "jsonp",crossDomain: true,
+	            error: function(xhr, textStatus, errorThrown){ 
+	            	console.log(textStatus + errorThrown);
+	            },
+	            success: function(data, textStatus){
+	               console.log(textStatus);
+	               countryData = data[1];
+	               /*
+	               thisCountry = countryData[0];
+	               console.log(countryData);
+	               console.log(thisCountry);
+	               console.log(thisCountry.country.id);
+	               console.log(parseInt(thisCountry.value));
+	               */
+
+	                var dataTable = new google.visualization.DataTable();
+  					dataTable.addColumn('string', 'Country');
+  					dataTable.addColumn('number', 'Internet Users');
+
+					var name;
+					var percent;
+					  for(var i in countryData) {
+					  	if (countryData[i].date == '2012') {
+					  	name = countryData[i].country.id;
+					  	console.log(name);
+					  	percent = parseInt(countryData[i].value);
+					  	if (!isNaN(percent)) {
+					    	dataTable.addRow([name, percent]);
+					    	console.log(percent);
+					    }
+					}
+					}
+
+					//console.log(dataTable);
+
+	               	var regionOptions = {};  
+  					regionOptions['width'] = '1000';  
+  					regionOptions['height'] = '600'; 
+
+					var chart = new google.visualization.GeoChart(document.getElementById('map_div'));
+					console.log(chart);
+
+					chart.draw(dataTable, regionOptions);
+
+  					var dataTable2 = new google.visualization.DataTable();
+
+					dataTable2.addColumn('string', 'Country');
+					dataTable2.addColumn('date', 'Date');
+					dataTable2.addColumn('number', 'Internet Users');
+
+					var name;
+					var percent;
+					var date;
+
+					  for(var i in countryData) {
+					  	name = countryData[i].country.value;
+					  	console.log(name);
+					  	percent = parseInt(countryData[i].value);
+					  	date = new Date(countryData[i].date,0,1)
+					  	if (!isNaN(percent)) {
+					    	dataTable2.addRow([name, date, percent]);
+					    }
+					}
+					var options = {};
+
+					options['state'] = {"yZoomedIn":false,"xZoomedDataMax":96,"nonSelectedAlpha":0.4,"sizeOption":"2","xAxisOption":"2","orderedByY":false,"orderedByX":false,"iconKeySettings":[],"yZoomedDataMax":96,"iconType":"BUBBLE","xZoomedIn":false,"xLambda":1,"yZoomedDataMin":0,"yLambda":1,"dimensions":{"iconDimensions":["dim0"]},"showTrails":true,"uniColorForNonSelected":false,"yAxisOption":"2","colorOption":"2","playDuration":15000,"time":"2000","xZoomedDataMin":0,"duration":{"timeUnit":"D","multiplier":1}};
+					options['width'] = 800;
+					options['height'] = 400;
+					//options['showSidePanel'] = false;
+
+					var motionchart = new google.visualization.MotionChart(
+						document.getElementById('visualization'));
+						motionchart.draw(dataTable2, options);
+					}       
+})
+}
+	</script>
+</head>
+<body>
+	<div id="map_div" style="width: 900px; height: 500px;"></div>
+	<div id="visualization" style="margin-top: 100px"></div>
+</body>
+</html>
