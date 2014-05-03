@@ -4,117 +4,11 @@
 <head>
  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
  	<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+ 	<script src="js/scripts.js" type="text/javascript"></script>
 	<script type='text/javascript'>
 	google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motionchart']});
 	google.setOnLoadCallback(drawRegionsMap);
 
-	function drawRegionsMap() {
-		queryWorldBank();
-	};
-
-	function done(){}
-
-	function queryWorldBank() {
-
-	var countryCodes = ["AFG","ALB","DZA","ASM","AND","AGO","AIA","ATA","ATG","ARG","ARM","ABW","AUS","AUT","AZE","BHS","BHR","BGD","BRB","BLR","BEL","BLZ","BEN","BMU","BTN","BOL","BIH","BWA","BVT","BRA","IOT","BRN","BGR","BFA","BDI","KHM","CMR","CAN","CPV","CYM","CAF","TCD","CHL","CHN","CXR","CCK","COL","COM","COG","COD","COK","CRI","CIV","HRV","CUB","CYP","CZE","DNK","DJI","DMA","DOM","TMP","ECU","EGY","SLV","GNQ","ERI","EST","ETH ","FLK","FRO","FJI","FIN","FRA","FXX","GUF","PYF","ATF","GAB","GMB","GEO","DEU","GHA","GIB","GRC","GRL","GRD","GLP","GUM","GTM","GIN","GNB","GUY","HTI","HMD","VAT","HND","HKG","HUN","ISL","IND","IDN","IRN","IRQ","IRL","ISR","ITA","JAM","JPN","JOR","KAZ","KEN","KIR","PRK","KOR","KWT","KGZ","LAO","LVA","LBN","LSO","LBR","LBY","LIE","LTU","LUX","MAC","MKD","MDG","MWI","MYS","MDV","MLI","MLT","MHL","MTQ","MRT","MUS","MYT","MEX","FSM","MDA","MCO","MNG","MNE","MSR","MAR","MOZ","MMR","NAM","NRU","NPL","NLD","ANT","NCL","NZL","NIC","NER","NGA","NIU","NFK","MNP","NOR","OMN","PAK","PLW","PAN","PNG","PRY","PER","PHL","PCN","POL","PRT","PRI","QAT","REU","ROM","RUS","RWA","KNA","LCA","VCT","WSM","SMR","STP","SAU","SEN","SRB SYC SLE","SGP","SVK","SVN","SLB","SOM","ZAF","SSD","SGS","ESP","LKA","SHN","SPM","SDN","SUR","SJM","SWZ","SWE","CHE","SYR","TWN","TJK","TZA","THA","TGO","TKL","TON","TTO","TUN","TUR","TKM","TCA","TUV","UGA","UKR","ARE","GBR","USA","UMI","URY","UZB","VUT","VEN","VNM","VGB","VIR","WLF","ESH","YEM","ZMB","ZWE"];
-
-		url = "http://api.worldbank.org/countries/all/indicators/IT.NET.USER.P2?per_page=5000&date=2000:2012&format=jsonP&prefix=?";
-		population_url = "http://api.worldbank.org/countries/indicators/SP.POP.TOTL?per_page=5000&date=2000:2012&format=jsonP&prefix=?";
-		literacy_url = "http://api.worldbank.org/countries/indicators/SE.ADT.LITR.ZS?per_page=5000&date=2000:2012&format=jsonP&prefix=?";
-		gdp_per_capita = "http://api.worldbank.org/countries/indicators/NY.GDP.PCAP.CD?per_page=5000&date=2000:2012&format=jsonP&prefix=?";
-		combined_url = "http://api.worldbank.org/countries/all/indicators/SP.POP.TOTL;IT.NET.USER.P2;NY.GDP.PCAP.CD?source=2&date=2000:2012&per_page=15000&format=jsonP&prefix=?";
-
-		var country_url;
-
-		for (var country = 0; country < countryCodes.length; country++){
-			country_url = "http://api.worldbank.org/countries/" + countryCodes[country] + "/indicators/IT.NET.USER.P2?per_page=5000&date=2000:2012&format=jsonP&prefix=?";
-			console.log(country_url);
-		}
-
-		$.ajax({
-	            type: "GET",
-	            url: url,
-	            async: true,
-        		cache: false,
-        		jsonpCallback: "done",    
-        		contentType: "text/json; charset=utf-8",
-        		dataType: "jsonp",crossDomain: true,
-	            error: function(xhr, textStatus, errorThrown){ 
-	            	console.log(textStatus + errorThrown);
-	            },
-	            success: function(data, textStatus){
-	               console.log(textStatus);
-	               countryData = data[1];
-	               /*
-	               thisCountry = countryData[0];
-	               console.log(countryData);
-	               console.log(thisCountry);
-	               console.log(thisCountry.country.id);
-	               console.log(parseInt(thisCountry.value));
-	               */
-
-	                var dataTable = new google.visualization.DataTable();
-  					dataTable.addColumn('string', 'Country');
-  					dataTable.addColumn('number', 'Internet Users');
-
-					var name;
-					var percent;
-					  for(var i in countryData) {
-					  	if (countryData[i].date == '2012') {
-					  	name = countryData[i].country.id;
-					  	console.log(name);
-					  	percent = parseInt(countryData[i].value);
-					  	if (!isNaN(percent)) {
-					    	dataTable.addRow([name, percent]);
-					    	console.log(percent);
-					    }
-					}
-				}
-
-					//console.log(dataTable);
-
-	               	var regionOptions = {};  
-  					regionOptions['width'] = '1000';  
-  					regionOptions['height'] = '600'; 
-
-					var chart = new google.visualization.GeoChart(document.getElementById('map_div'));
-					console.log(chart);
-
-					chart.draw(dataTable, regionOptions);
-
-  					var dataTable2 = new google.visualization.DataTable();
-
-					dataTable2.addColumn('string', 'Country');
-					dataTable2.addColumn('date', 'Date');
-					dataTable2.addColumn('number', 'Internet Users');
-
-					var name;
-					var percent;
-					var date;
-					var region;
-
-					  for(var i in countryData) {
-					  	name = countryData[i].country.value;
-					  	console.log(name);
-					  	percent = parseInt(countryData[i].value);
-					  	date = new Date(countryData[i].date,0,1)
-					  	if (!isNaN(percent)) {
-					    	dataTable2.addRow([name, date, percent]);
-					    }
-					}
-					var options = {};
-
-					options['state'] = {"yZoomedIn":false,"xZoomedDataMax":96,"nonSelectedAlpha":0.4,"sizeOption":"2","xAxisOption":"2","orderedByY":false,"orderedByX":false,"iconKeySettings":[],"yZoomedDataMax":96,"iconType":"BUBBLE","xZoomedIn":false,"xLambda":1,"yZoomedDataMin":0,"yLambda":1,"dimensions":{"iconDimensions":["dim0"]},"showTrails":true,"uniColorForNonSelected":false,"yAxisOption":"2","colorOption":"2","playDuration":15000,"time":"2000","xZoomedDataMin":0,"duration":{"timeUnit":"D","multiplier":1}};
-					options['width'] = 800;
-					options['height'] = 400;
-					//options['showSidePanel'] = false;
-
-					var motionchart = new google.visualization.MotionChart(
-						document.getElementById('visualization'));
-						motionchart.draw(dataTable2, options);
-					}       
-})
-}
 	</script>
 </head>
 <body>
