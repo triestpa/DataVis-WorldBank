@@ -12,18 +12,21 @@
 		<script src="js/bootstrap-slider.js" type="text/javascript">
 </script>
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css">
-				<link href="css/slider.css" rel="stylesheet" media="screen" type="text/css">
+		<link href="css/mystyles.css" rel="stylesheet" media="screen" type="text/css">
+		<link href="css/slider.css" rel="stylesheet" media="screen" type="text/css">
 
 		<script type='text/javascript'>
 google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motionchart']});
 		google.setOnLoadCallback(drawRegionsMap);
-
 		</script>
 		<title></title>
 	</head>
 	<body>
 		<div id="map_div" style="width: 900px; height: 500px;"></div>
-		<div class="slider slider-horizontal" id="year-slider" style="width: 250px;"></div>
+		
+		<div  class="col-sm-3  col-md-offset-3" id="year-slider-col">
+		<div class="slider slider-horizontal" id="year-slider"></div>
+	</div>
 
 		<div id="visualization" style="margin-top: 100px"></div>
 	</body>
