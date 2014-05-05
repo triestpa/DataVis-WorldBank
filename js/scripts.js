@@ -8,6 +8,8 @@ var animating = false;
 
 var maxyear;
 
+var regionOptions = {};
+
 
 
 
@@ -21,14 +23,8 @@ function init() {
 	}
 
 	$(window).scroll(function(e){
-		parallax();
+		//parallax();
 	});
-
-	$('#loading-modal').modal({
-		keyboard: false,
-		backdrop: false
-	})
-	$('#loading-modal').modal('show');
 
 	chart = new google.visualization.GeoChart(document.getElementById('map_div'));
 	motionchart = new google.visualization.MotionChart(
@@ -60,6 +56,7 @@ function init() {
 			animating = false;
 		}
 		else {
+			$("#playicon").attr('class', "glyphicon glyphicon-pause");
 			var yeariter = 1992;
 			animating = true;
 
@@ -72,12 +69,31 @@ function init() {
 					clearInterval();
 					animating = false;
 					yeariter = 1992;
+					$("#playicon").attr('class', "glyphicon glyphicon-play");
 				}
 			}, 1000);
 		}
 	});
 
+	var dataTable = new google.visualization.DataTable();
+	dataTable.addColumn('string', 'Country');
+	dataTable.addColumn('number', 'Internet Users(per 100 people)');
+
+	regionOptions['colorAxis'] = {'minValue': 0, 'maxValue': 100, 'colors':['#FFFFFF','#E6F0FF','#CCE0FF','#B2D1FF','#99C2FF','#80B2FF','#66A3FF','#4D94FF','#3385FF','#1975FF','#0066FF','#005CE6','#0047B2','#003D99','#003380','#002966','#001F4C','#001433']};
+	regionOptions['width'] = '1000';  
+	regionOptions['height'] = '600'; 
+	regionOptions['backgroundColor'] = 'transparent';
+
+	chart.draw(dataTable, regionOptions);
+
+
+	$('#loading-modal').modal({
+		keyboard: false,
+		backdrop: false
+	})
+	$('#loading-modal').modal('show');
 	queryWorldBank();
+	
 };
 
 
@@ -134,13 +150,6 @@ function generateGeoMap(data, year) {
 			}
 		}
 	}
-
-
-	var regionOptions = {};
-	regionOptions['colorAxis'] = {'minValue': 0, 'maxValue': 100, 'colors':['#FFFFFF','#E6F0FF','#CCE0FF','#B2D1FF','#99C2FF','#80B2FF','#66A3FF','#4D94FF','#3385FF','#1975FF','#0066FF','#005CE6','#0047B2','#003D99','#003380','#002966','#001F4C','#001433']};
-	regionOptions['width'] = '1000';  
-	regionOptions['height'] = '600'; 
-	regionOptions['backgroundColor'] = 'transparent';
 
 	chart.draw(dataTable, regionOptions);
 }
