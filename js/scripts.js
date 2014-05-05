@@ -101,24 +101,37 @@ function generateMotionChart(data) {
 
 	for(var i in data) {
 		if (data[i].indicator.id == 'IT.NET.USER.P2') {
-			name = data[i].country.id;
-			console.log(name);
+			name = data[i].country.value;
 			date = new Date(data[i].date,0,1);
 			percent = parseInt(data[i].value);
 			if (!isNaN(percent)) {
 				dataTable2.addRow([name, date, percent, 0, 0]);
 			}
+			else 
+				dataTable2.addRow([name, date, 0, 0, 0]);
 		}
 	}
 	
-	/*
-	for(var i in data) {
-		dataTable2.setCell(i, 3 , 2);
+	var rows = dataTable2.getNumberOfRows();
+	console.log("Rows:" + rows);
+	
+	for(var i = 0; i < rows; i++) {
+		thisRow = i+rows;
+		if (data[thisRow].indicator.id == 'NY.GDP.PCAP.CD') {
+			dataTable2.setCell(parseInt(thisRow - rows), 4 , parseInt(data[thisRow].value));
+		}
 	}
-	*/
+
+	for(var i = 0; i < rows; i++) {
+		thisRow = i+(rows*2);
+		if (data[thisRow].indicator.id == 'SP.POP.TOTL') {
+			dataTable2.setCell(parseInt(thisRow - (rows*2)), 3 , parseInt(data[thisRow].value));
+		}
+	}
+	
 
 		var options = {};
-		options['state'] = {"yZoomedIn":false,"xZoomedDataMax":96,"nonSelectedAlpha":0.4,"sizeOption":"2","xAxisOption":"2","orderedByY":false,"orderedByX":false,"iconKeySettings":[],"yZoomedDataMax":96,"iconType":"BUBBLE","xZoomedIn":false,"xLambda":1,"yZoomedDataMin":0,"yLambda":1,"dimensions":{"iconDimensions":["dim0"]},"showTrails":true,"uniColorForNonSelected":false,"yAxisOption":"2","colorOption":"2","playDuration":15000,"time":"2000","xZoomedDataMin":0,"duration":{"timeUnit":"D","multiplier":1}};
+		options['state'] = {"iconType":"BUBBLE","dimensions":{"iconDimensions":["dim0"]},"yAxisOption":"2","yZoomedDataMin":0,"duration":{"timeUnit":"D","multiplier":1},"orderedByX":false,"nonSelectedAlpha":0.4,"uniColorForNonSelected":false,"showTrails":true,"yLambda":1,"xZoomedDataMax":193892,"xAxisOption":"4","xZoomedIn":false,"colorOption":"4","time":"2012","orderedByY":false,"sizeOption":"3","yZoomedIn":false,"xLambda":0,"playDuration":15000,"xZoomedDataMin":133,"yZoomedDataMax":96,"iconKeySettings":[]}
 		options['width'] = 800;
 		options['height'] = 400;
 
