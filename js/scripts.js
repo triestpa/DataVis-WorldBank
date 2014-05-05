@@ -23,7 +23,7 @@ function init() {
 	}
 
 	$(window).scroll(function(e){
-		//parallax();
+		parallax();
 	});
 
 	chart = new google.visualization.GeoChart(document.getElementById('map_div'));
