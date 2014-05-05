@@ -26,17 +26,20 @@ function init() {
 		max: maxyear,
 		step: 1,
 		value: maxyear,
-		tooltip: 'show',
+		tooltip: 'hide',
 	};
+
+	$('#year-text').text(maxyear);
 
 	$('#year-slider').slider(options);
 	
 	$('#year-slider').slider()
 	.on('slide', function(ev){
-		if (countryData != null) {}
-			console.log(countryData);
-		console.log(ev.value);
-		generateGeoMap(countryData, ev.value);
+		animating = false;
+		if (countryData != null) {
+			$('#year-text').text(ev.value);
+			generateGeoMap(countryData, ev.value);
+		}
 	});
 
 	$("#map-button").click(function() {
@@ -49,6 +52,7 @@ function init() {
 
 			setInterval(function() {
 				if (yeariter <= maxyear && animating == true) {
+					$('#year-text').text(yeariter);
 					yeariter = slide(yeariter);
 				}
 				else {

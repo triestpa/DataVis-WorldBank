@@ -37,11 +37,14 @@ google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motion
 		<div id="charts">
 			<div id="map_div" style="width: 900px; height: 500px;"></div>
 			<div class="row" id="slider-row">
-				<div class="col-sm-1 col-md-offset-4" id="year-slider-col">
+				<div class="col-sm-1 col-md-offset-4">
 					<button type="button" class="btn btn-default" id="map-button">Animate</button>
 				</div>
-				<div class="col-sm-3" id="year-slider-col2">
+				<div class="col-sm-5">
 					<div class="slider slider-horizontal" id="year-slider"></div>
+				</div>
+				<div class="col-sm-1">
+					<p id="year-text">year</div>
 				</div>
 				<div id="visualization" style="margin-top: 100px"></div>
 			</div>
