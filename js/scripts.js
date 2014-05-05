@@ -38,6 +38,9 @@ function init() {
 		tooltip: 'hide',
 	};
 
+	var yeariter = 1992;
+	var playInterval;
+
 	$('#year-text').text(maxyear);
 
 	$('#year-slider').slider(options);
@@ -47,6 +50,7 @@ function init() {
 		animating = false;
 		if (countryData != null) {
 			$('#year-text').text(ev.value);
+			yeariter = ev.value;
 			generateGeoMap(countryData, ev.value);
 		}
 	});
@@ -57,18 +61,20 @@ function init() {
 		}
 		else {
 			$("#playicon").attr('class', "glyphicon glyphicon-pause");
-			var yeariter = 1992;
 			animating = true;
 
-			setInterval(function() {
+			if (yeariter >= maxyear) {
+				yeariter = 1992;
+			}
+
+			playInterval = setInterval(function() {
 				if (yeariter <= maxyear && animating == true) {
 					$('#year-text').text(yeariter);
 					yeariter = slide(yeariter);
 				}
 				else {
-					clearInterval();
+					clearInterval(playInterval);
 					animating = false;
-					yeariter = 1992;
 					$("#playicon").attr('class', "glyphicon glyphicon-play");
 				}
 			}, 1000);
@@ -140,6 +146,7 @@ function queryWorldBank() {
 //	$('#loading-message').text('Downloading World Bank Data . . . ');
 
 	$('#network-status').html('Downloading World Bank Data . . .');
+
 	$.ajax({
 		type: "GET",
 		url: combined_url,
