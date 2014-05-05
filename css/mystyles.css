@@ -10,9 +10,11 @@
 	margin-left: 100px;
 }
 
+.jumbotron {
+	text-align: center;
+}
+
+
 body {
 	background-color: white;
-    display: inline-block;
-    margin: 0px auto;
-    text-align: center;
 }

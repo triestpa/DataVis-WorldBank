@@ -139,7 +139,7 @@ function generateMotionChart(data) {
 	
 
 		var options = {};
-		options['state'] = '{"yZoomedIn":false,"nonSelectedAlpha":0.4,"xZoomedDataMax":96,"sizeOption":"4","xZoomedIn":false,"showTrails":true,"uniColorForNonSelected":false,"yZoomedDataMax":193892,"colorOption":"3","iconType":"BUBBLE","xLambda":1,"yZoomedDataMin":133,"xZoomedDataMin":0,"orderedByY":false,"dimensions":{"iconDimensions":["dim0"]},"time":"2012","xAxisOption":"2","orderedByX":false,"yLambda":0,"playDuration":15000,"iconKeySettings":[],"yAxisOption":"3","duration":{"timeUnit":"D","multiplier":1}}';
+		options['state'] = '{"yZoomedIn":false,"nonSelectedAlpha":0.4,"xZoomedDataMax":96,"sizeOption":"4","xZoomedIn":false,"showTrails":false,"uniColorForNonSelected":false,"yZoomedDataMax":193892,"colorOption":"3","iconType":"BUBBLE","xLambda":1,"yZoomedDataMin":133,"xZoomedDataMin":0,"orderedByY":false,"dimensions":{"iconDimensions":["dim0"]},"time":"2012","xAxisOption":"2","orderedByX":false,"yLambda":0,"playDuration":15000,"iconKeySettings":[],"yAxisOption":"3","duration":{"timeUnit":"D","multiplier":1}}';
 		options['width'] = 1000;
 		options['height'] = 500;
 		options['showAdvancedPanel'] = false;
