@@ -4,21 +4,22 @@ var chart;
 var motionchart;
 var countryData = null;
 
-var maxyear ;
+var animating = false;
 
-function drawRegionsMap() {
+var maxyear;
+
+function init() {
 	maxyear = new Date().getFullYear() -2;
 
-
 	$('#loading-modal').modal({
- 		 keyboard: false,
- 		 backdrop: false
-		})
+		keyboard: false,
+		backdrop: false
+	})
 	$('#loading-modal').modal('show');
 
 	chart = new google.visualization.GeoChart(document.getElementById('map_div'));
 	motionchart = new google.visualization.MotionChart(
-			document.getElementById('visualization'));
+		document.getElementById('visualization'));
 
 	var options = {
 		min: 1992,
@@ -37,16 +38,46 @@ function drawRegionsMap() {
 		console.log(ev.value);
 		generateGeoMap(countryData, ev.value);
 	});
-	
-	queryWorldBank();
 
+	$("#map-button").click(function() {
+		if (animating) {
+			animating = false;
+		}
+		else {
+			var yeariter = 1992;
+			animating = true;
+
+			setInterval(function() {
+				if (yeariter <= maxyear && animating == true) {
+					yeariter = slide(yeariter);
+				}
+				else {
+					clearInterval();
+					animating = false;
+					yeariter = 1992;
+				}
+			}, 1000);
+		}
+	});
+
+	queryWorldBank();
 };
+
+
+function slide(year) {
+	console.log(year);
+	$('#year-slider').slider('setValue', year);
+	generateGeoMap(countryData, year);
+	return year + 1;
+};
+
 
 function done(){};
 
 function queryWorldBank() {
 	var combined_url = "http://api.worldbank.org/countries/AFG;ALB;DZA;ASM;AND;AGO;ATG;ARG;ARM;ABW;AUS;AUT;AZE;BHS;BHR;BGD;BRB;BLR;BEL;BLZ;BEN;BMU;BTN;BOL;BIH;BWA;BRA;BRN;BGR;BFA;BDI;KHM;CMR;CAN;CPV;CYM;CAF;TCD;CHL;CHN;COL;COM;COG;COD;CRI;CIV;HRV;CUB;CYP;CZE;DNK;DJI;DMA;DOM;TMP;ECU;EGY;SLV;GNQ;ERI;EST;ETH ;FRO;FJI;FIN;FRA;PYF;GAB;GMB;GEO;DEU;GHA;GRC;GRL;GRD;GUM;GTM;GIN;GNB;GUY;HTI;HND;HKG;HUN;ISL;IND;IDN;IRN;IRQ;IRL;ISR;ITA;JAM;JPN;JOR;KAZ;KEN;KIR;PRK;KOR;KWT;KGZ;LAO;LVA;LBN;LSO;LBR;LBY;LIE;LTU;LUX;MAC;MKD;MDG;MWI;MYS;MDV;MLI;MLT;MHL;MRT;MUS;MEX;FSM;MDA;MCO;MNG;MNE;MAR;MOZ;MMR;NAM;NPL;NLD;NCL;NZL;NIC;NER;NGA;MNP;NOR;OMN;PAK;PLW;PAN;PNG;PRY;PER;PHL;POL;PRT;PRI;QAT;ROM;RUS;RWA;KNA;LCA;VCT;WSM;SMR;STP;SAU;SEN;SRB;SYC;SLE;SGP;SVK;SVN;SLB;SOM;ZAF;SSD;ESP;LKA;SDN;SUR;SWZ;SWE;CHE;SYR;TJK;TZA;THA;TGO;TON;TTO;TUN;TUR;TKM;TCA;TUV;UGA;UKR;ARE;GBR;USA;URY;UZB;VUT;VEN;VNM;VIR;YEM;ZMB;ZWE/indicators/IT.NET.USER.P2;NY.GDP.PCAP.CD;SP.POP.TOTL;IT.CEL.SETS.P2?source=2&date=1992:" + maxyear + "&per_page=20000&format=jsonP&prefix=?";
-	
+	//http://api.worldbank.org/countries/AFG;ALB;DZA;ASM;AND;AGO;ATG;ARG;ARM;ABW;AUS;AUT;AZE;BHS;BHR;BGD;BRB;BLR;BEL;BLZ;BEN;BMU;BTN;BOL;BIH;BWA;BRA;BRN;BGR;BFA;BDI;KHM;CMR;CAN;CPV;CYM;CAF;TCD;CHL;CHN;COL;COM;COG;COD;CRI;CIV;HRV;CUB;CYP;CZE;DNK;DJI;DMA;DOM;TMP;ECU;EGY;SLV;GNQ;ERI;EST;ETH ;FRO;FJI;FIN;FRA;PYF;GAB;GMB;GEO;DEU;GHA;GRC;GRL;GRD;GUM;GTM;GIN;GNB;GUY;HTI;HND;HKG;HUN;ISL;IND;IDN;IRN;IRQ;IRL;ISR;ITA;JAM;JPN;JOR;KAZ;KEN;KIR;PRK;KOR;KWT;KGZ;LAO;LVA;LBN;LSO;LBR;LBY;LIE;LTU;LUX;MAC;MKD;MDG;MWI;MYS;MDV;MLI;MLT;MHL;MRT;MUS;MEX;FSM;MDA;MCO;MNG;MNE;MAR;MOZ;MMR;NAM;NPL;NLD;NCL;NZL;NIC;NER;NGA;MNP;NOR;OMN;PAK;PLW;PAN;PNG;PRY;PER;PHL;POL;PRT;PRI;QAT;ROM;RUS;RWA;KNA;LCA;VCT;WSM;SMR;STP;SAU;SEN;SRB;SYC;SLE;SGP;SVK;SVN;SLB;SOM;ZAF;SSD;ESP;LKA;SDN;SUR;SWZ;SWE;CHE;SYR;TJK;TZA;THA;TGO;TON;TTO;TUN;TUR;TKM;TCA;TUV;UGA;UKR;ARE;GBR;USA;URY;UZB;VUT;VEN;VNM;VIR;YEM;ZMB;ZWE/indicators/IT.NET.USER.P2;NY.GDP.PCAP.CD;SP.POP.TOTL;IT.CEL.SETS.P2?source=2&date=1992:2012&per_page=20000
+
 	$('#loading-message').text('Downloading World Bank Data ... ');
 
 	$.ajax({
@@ -148,13 +179,13 @@ function generateMotionChart(data) {
 		}
 	}
 
-		var options = {};
-		options['state'] = '{"yZoomedIn":false,"nonSelectedAlpha":0.4,"xZoomedDataMax":96,"sizeOption":"4","xZoomedIn":false,"showTrails":false,"uniColorForNonSelected":false,"yZoomedDataMax":193892,"colorOption":"5","iconType":"BUBBLE","xLambda":1,"yZoomedDataMin":133,"xZoomedDataMin":0,"orderedByY":false,"dimensions":{"iconDimensions":["dim0"]},"time":"2012","xAxisOption":"2","orderedByX":false,"yLambda":0,"playDuration":15000,"iconKeySettings":[],"yAxisOption":"3","duration":{"timeUnit":"D","multiplier":1}}';
-		options['width'] = 1000;
-		options['height'] = 500;
-		options['showAdvancedPanel'] = false;
-		options['showChartButtons'] = false;
+	var options = {};
+	options['state'] = '{"yZoomedIn":false,"nonSelectedAlpha":0.4,"xZoomedDataMax":96,"sizeOption":"4","xZoomedIn":false,"showTrails":false,"uniColorForNonSelected":false,"yZoomedDataMax":193892,"colorOption":"5","iconType":"BUBBLE","xLambda":1,"yZoomedDataMin":133,"xZoomedDataMin":0,"orderedByY":false,"dimensions":{"iconDimensions":["dim0"]},"time":"2012","xAxisOption":"2","orderedByX":false,"yLambda":0,"playDuration":15000,"iconKeySettings":[],"yAxisOption":"3","duration":{"timeUnit":"D","multiplier":1}}';
+	options['width'] = 1000;
+	options['height'] = 500;
+	options['showAdvancedPanel'] = false;
+	options['showChartButtons'] = false;
 
-		motionchart.draw(dataTable2, options);
-		$('#loading-modal').modal('hide');
+	motionchart.draw(dataTable2, options);
+	$('#loading-modal').modal('hide');
 }
