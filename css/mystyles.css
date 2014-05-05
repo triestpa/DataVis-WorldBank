@@ -15,11 +15,27 @@
 	margin-bottom: 40px;
 }
 
-.jumbotron {
-	text-align: center;
-}
-
-
 body {
 	background-color: white;
+}
+
+.jumbotron {
+	text-align: center;
+	height: 300px;
+	color: white;
+	font-family: 'Alegreya Sans', sans-serif;
+	text-shadow: black 0.1em 0.1em 0.1em;
+	background:transparent;
+}
+
+.bg {
+	background: url('../img/connected-world.jpg') no-repeat center center;
+	position: fixed;
+	width: 100%;
+	height: 300px; /*same height as jumbotron */
+	top:0;
+	left:0;
+	z-index: -1;
+}
+
 }

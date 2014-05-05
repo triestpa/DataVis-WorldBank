@@ -8,8 +8,21 @@ var animating = false;
 
 var maxyear;
 
+
+
+
 function init() {
 	maxyear = new Date().getFullYear() -2;
+
+	var jumboHeight = $('.jumbotron').outerHeight();
+	function parallax(){
+		var scrolled = $(window).scrollTop();
+		$('.bg').css('height', (jumboHeight-scrolled) + 'px');
+	}
+
+	$(window).scroll(function(e){
+		parallax();
+	});
 
 	$('#loading-modal').modal({
 		keyboard: false,
@@ -127,6 +140,8 @@ function generateGeoMap(data, year) {
 	regionOptions['colorAxis'] = {'minValue': 0, 'maxValue': 100, 'colors':['#FFFFFF','#E6F0FF','#CCE0FF','#B2D1FF','#99C2FF','#80B2FF','#66A3FF','#4D94FF','#3385FF','#1975FF','#0066FF','#005CE6','#0047B2','#003D99','#003380','#002966','#001F4C','#001433']};
 	regionOptions['width'] = '1000';  
 	regionOptions['height'] = '600'; 
+	regionOptions['backgroundColor'] = 'transparent';
+
 	chart.draw(dataTable, regionOptions);
 }
 
