@@ -86,24 +86,50 @@ function init() {
 
 	chart.draw(dataTable, regionOptions);
 
-
+/*
 	$('#loading-modal').modal({
 		keyboard: false,
 		backdrop: false
 	})
 	$('#loading-modal').modal('show');
-	queryWorldBank();
-	
+	*/
+
+//	$('.alert').hide()			
+
+
+loadFromCache();
+queryWorldBank();
 };
 
 
 function slide(year) {
-	console.log(year);
 	$('#year-slider').slider('setValue', year);
 	generateGeoMap(countryData, year);
 	return year + 1;
 };
 
+
+
+function loadFromCache() {
+		$('#cache-status').html('Loading From Cache . . . ');			
+		$.getJSON('data/datacache.json', function(json) {
+			countryData = json[1];
+			if (countryData == null){
+				$('.alert').html('Error Loading Data From Cache');			
+			}
+			else {
+				generateGeoMap(countryData, '' + 2012);
+				generateMotionChart(countryData);
+			}
+		})
+		.done(function() {
+				$('#cache-status').html('Cache Data Loaded Successfully');			
+  })
+  .fail(function() {
+				$('#cache-status').html('Error Loading Data From Cache');			
+  });
+
+}
 
 function done(){};
 
@@ -111,25 +137,37 @@ function queryWorldBank() {
 	var combined_url = "http://api.worldbank.org/countries/AFG;ALB;DZA;ASM;AND;AGO;ATG;ARG;ARM;ABW;AUS;AUT;AZE;BHS;BHR;BGD;BRB;BLR;BEL;BLZ;BEN;BMU;BTN;BOL;BIH;BWA;BRA;BRN;BGR;BFA;BDI;KHM;CMR;CAN;CPV;CYM;CAF;TCD;CHL;CHN;COL;COM;COG;COD;CRI;CIV;HRV;CUB;CYP;CZE;DNK;DJI;DMA;DOM;TMP;ECU;EGY;SLV;GNQ;ERI;EST;ETH ;FRO;FJI;FIN;FRA;PYF;GAB;GMB;GEO;DEU;GHA;GRC;GRL;GRD;GUM;GTM;GIN;GNB;GUY;HTI;HND;HKG;HUN;ISL;IND;IDN;IRN;IRQ;IRL;ISR;ITA;JAM;JPN;JOR;KAZ;KEN;KIR;PRK;KOR;KWT;KGZ;LAO;LVA;LBN;LSO;LBR;LBY;LIE;LTU;LUX;MAC;MKD;MDG;MWI;MYS;MDV;MLI;MLT;MHL;MRT;MUS;MEX;FSM;MDA;MCO;MNG;MNE;MAR;MOZ;MMR;NAM;NPL;NLD;NCL;NZL;NIC;NER;NGA;MNP;NOR;OMN;PAK;PLW;PAN;PNG;PRY;PER;PHL;POL;PRT;PRI;QAT;ROM;RUS;RWA;KNA;LCA;VCT;WSM;SMR;STP;SAU;SEN;SRB;SYC;SLE;SGP;SVK;SVN;SLB;SOM;ZAF;SSD;ESP;LKA;SDN;SUR;SWZ;SWE;CHE;SYR;TJK;TZA;THA;TGO;TON;TTO;TUN;TUR;TKM;TCA;TUV;UGA;UKR;ARE;GBR;USA;URY;UZB;VUT;VEN;VNM;VIR;YEM;ZMB;ZWE/indicators/IT.NET.USER.P2;NY.GDP.PCAP.CD;SP.POP.TOTL;IT.CEL.SETS.P2?source=2&date=1992:" + maxyear + "&per_page=20000&format=jsonP&prefix=?";
 	//http://api.worldbank.org/countries/AFG;ALB;DZA;ASM;AND;AGO;ATG;ARG;ARM;ABW;AUS;AUT;AZE;BHS;BHR;BGD;BRB;BLR;BEL;BLZ;BEN;BMU;BTN;BOL;BIH;BWA;BRA;BRN;BGR;BFA;BDI;KHM;CMR;CAN;CPV;CYM;CAF;TCD;CHL;CHN;COL;COM;COG;COD;CRI;CIV;HRV;CUB;CYP;CZE;DNK;DJI;DMA;DOM;TMP;ECU;EGY;SLV;GNQ;ERI;EST;ETH ;FRO;FJI;FIN;FRA;PYF;GAB;GMB;GEO;DEU;GHA;GRC;GRL;GRD;GUM;GTM;GIN;GNB;GUY;HTI;HND;HKG;HUN;ISL;IND;IDN;IRN;IRQ;IRL;ISR;ITA;JAM;JPN;JOR;KAZ;KEN;KIR;PRK;KOR;KWT;KGZ;LAO;LVA;LBN;LSO;LBR;LBY;LIE;LTU;LUX;MAC;MKD;MDG;MWI;MYS;MDV;MLI;MLT;MHL;MRT;MUS;MEX;FSM;MDA;MCO;MNG;MNE;MAR;MOZ;MMR;NAM;NPL;NLD;NCL;NZL;NIC;NER;NGA;MNP;NOR;OMN;PAK;PLW;PAN;PNG;PRY;PER;PHL;POL;PRT;PRI;QAT;ROM;RUS;RWA;KNA;LCA;VCT;WSM;SMR;STP;SAU;SEN;SRB;SYC;SLE;SGP;SVK;SVN;SLB;SOM;ZAF;SSD;ESP;LKA;SDN;SUR;SWZ;SWE;CHE;SYR;TJK;TZA;THA;TGO;TON;TTO;TUN;TUR;TKM;TCA;TUV;UGA;UKR;ARE;GBR;USA;URY;UZB;VUT;VEN;VNM;VIR;YEM;ZMB;ZWE/indicators/IT.NET.USER.P2;NY.GDP.PCAP.CD;SP.POP.TOTL;IT.CEL.SETS.P2?source=2&date=1992:2012&per_page=20000
 
-	$('#loading-message').text('Downloading World Bank Data ... ');
+//	$('#loading-message').text('Downloading World Bank Data . . . ');
 
+	$('#network-status').html('Downloading World Bank Data . . .');
 	$.ajax({
 		type: "GET",
 		url: combined_url,
 		async: true,
-		cache: false,
+		cache: true,
 		jsonpCallback: 'done',    
 		contentType: "text/json; charset=utf-8",
-		dataType: "jsonp",crossDomain: true,
+		dataType: "jsonp", crossDomain: true,
 		error: function(xhr, textStatus, errorThrown){ 
+			$('.alert').html('Error Downloading Data');			
 			console.log(textStatus + errorThrown);
+			$('#loading-modal').modal('hide');
+			$('.alert').show()			
 		},
 		success: function(data, textStatus){
+			$('#network-status').html('Data Download Successful');
+			
+			setTimeout(function() {$(".alert").alert('close');}, 3000);
+
 			console.log(textStatus);
-			$('#loading-message').text('Crunching Data ... ');
 			countryData = data[1];
-			generateGeoMap(countryData, '' + maxyear);
-			generateMotionChart(countryData);
+			if (countryData == null){
+				$('.alert').html('Error Downloading Data');			
+			}
+			else {
+				generateGeoMap(countryData, '' + maxyear);
+				generateMotionChart(countryData);
+			}
 		}
 	});
 }
