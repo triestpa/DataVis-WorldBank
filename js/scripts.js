@@ -157,7 +157,7 @@ function queryWorldBank() {
 		success: function(data, textStatus){
 			$('#network-status').html('Data Download Successful');
 			
-			setTimeout(function() {$(".alert").alert('close');}, 3000);
+			//setTimeout(function() {$(".alert").alert('close');}, 3000);
 
 			console.log(textStatus);
 			countryData = data[1];
