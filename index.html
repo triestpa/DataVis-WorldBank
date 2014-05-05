@@ -14,7 +14,6 @@
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" type="text/css">
 		<link href="css/mystyles.css" rel="stylesheet" media="screen" type="text/css">
 		<link href="css/slider.css" rel="stylesheet" media="screen" type="text/css">
-
 		<script type='text/javascript'>
 google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motionchart']});
 		google.setOnLoadCallback(drawRegionsMap);
@@ -22,12 +21,28 @@ google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motion
 		<title></title>
 	</head>
 	<body>
-		<div id="map_div" style="width: 900px; height: 500px;"></div>
-		
-		<div  class="col-sm-3  col-md-offset-3" id="year-slider-col">
-		<div class="slider slider-horizontal" id="year-slider"></div>
-	</div>
-
-		<div id="visualization" style="margin-top: 100px"></div>
+		<div id="charts">
+			<div id="map_div" style="width: 900px; height: 500px;"></div>
+			<div class="col-sm-3 col-md-offset-3" id="year-slider-col">
+				<div class="slider slider-horizontal" id="year-slider"></div>
+			</div>
+			<div id="visualization" style="margin-top: 100px"></div>
+		</div>
+		<div class="modal fade" id="loading-modal">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">
+							Status
+						</h4>
+					</div>
+					<div class="modal-body">
+						<p id="loading-message">
+							Loading...
+						</p>
+					</div>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
 	</body>
 </html>

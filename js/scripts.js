@@ -6,6 +6,12 @@ var countryData = null;
 
 
 function drawRegionsMap() {
+	$('#loading-modal').modal({
+ 		 keyboard: false,
+ 		 backdrop: false
+		})
+	$('#loading-modal').modal('show');
+
 	chart = new google.visualization.GeoChart(document.getElementById('map_div'));
 	motionchart = new google.visualization.MotionChart(
 			document.getElementById('visualization'));
@@ -36,6 +42,7 @@ function done(){};
 
 function queryWorldBank() {
 	var combined_url = "http://api.worldbank.org/countries/AFG;ALB;DZA;ASM;AND;AGO;ATG;ARG;ARM;ABW;AUS;AUT;AZE;BHS;BHR;BGD;BRB;BLR;BEL;BLZ;BEN;BMU;BTN;BOL;BIH;BWA;BRA;BRN;BGR;BFA;BDI;KHM;CMR;CAN;CPV;CYM;CAF;TCD;CHL;CHN;COL;COM;COG;COD;CRI;CIV;HRV;CUB;CYP;CZE;DNK;DJI;DMA;DOM;TMP;ECU;EGY;SLV;GNQ;ERI;EST;ETH ;FRO;FJI;FIN;FRA;PYF;GAB;GMB;GEO;DEU;GHA;GRC;GRL;GRD;GUM;GTM;GIN;GNB;GUY;HTI;HND;HKG;HUN;ISL;IND;IDN;IRN;IRQ;IRL;ISR;ITA;JAM;JPN;JOR;KAZ;KEN;KIR;PRK;KOR;KWT;KGZ;LAO;LVA;LBN;LSO;LBR;LBY;LIE;LTU;LUX;MAC;MKD;MDG;MWI;MYS;MDV;MLI;MLT;MHL;MRT;MUS;MEX;FSM;MDA;MCO;MNG;MNE;MAR;MOZ;MMR;NAM;NPL;NLD;NCL;NZL;NIC;NER;NGA;MNP;NOR;OMN;PAK;PLW;PAN;PNG;PRY;PER;PHL;POL;PRT;PRI;QAT;ROM;RUS;RWA;KNA;LCA;VCT;WSM;SMR;STP;SAU;SEN;SRB;SYC;SLE;SGP;SVK;SVN;SLB;SOM;ZAF;SSD;ESP;LKA;SDN;SUR;SWZ;SWE;CHE;SYR;TJK;TZA;THA;TGO;TON;TTO;TUN;TUR;TKM;TCA;TUV;UGA;UKR;ARE;GBR;USA;URY;UZB;VUT;VEN;VNM;VIR;YEM;ZMB;ZWE/indicators/IT.NET.USER.P2;NY.GDP.PCAP.CD;SP.POP.TOTL?source=2&date=1992:2012&per_page=20000&format=jsonP&prefix=?";
+	$('#loading-message').text('Downloading World Bank Data ... ');
 
 
 	$.ajax({
@@ -51,6 +58,7 @@ function queryWorldBank() {
 		},
 		success: function(data, textStatus){
 			console.log(textStatus);
+			$('#loading-message').text('Crunching Data ... ');
 			countryData = data[1];
 			generateGeoMap(countryData, '2012');
 			generateMotionChart(countryData);
@@ -138,4 +146,5 @@ function generateMotionChart(data) {
 		options['showChartButtons'] = false;
 
 		motionchart.draw(dataTable2, options);
+		$('#loading-modal').modal('hide');
 }

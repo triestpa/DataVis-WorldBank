@@ -6,6 +6,13 @@
 	margin-top: 80px;
 }
 
+#charts {
+	margin-left: 100px;
+}
+
 body {
 	background-color: white;
+    display: inline-block;
+    margin: 0px auto;
+    text-align: center;
 }
