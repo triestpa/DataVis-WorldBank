@@ -26,6 +26,11 @@ function init() {
 		parallax();
 	});
 
+	$('.carousel').carousel({
+  			interval: 8000,
+  			pause: 'false'
+		});
+
 	chart = new google.visualization.GeoChart(document.getElementById('map_div'));
 	motionchart = new google.visualization.MotionChart(
 		document.getElementById('visualization'));
@@ -162,14 +167,14 @@ function queryWorldBank() {
 			$('.alert').show()			
 		},
 		success: function(data, textStatus){
-			$('#network-status').html('Data Download Successful');
+			$('#network-status').html('World Bank Data Download Successful');
 			
 			//setTimeout(function() {$(".alert").alert('close');}, 3000);
 
 			console.log(textStatus);
 			countryData = data[1];
 			if (countryData == null){
-				$('.alert').html('Error Downloading Data');			
+				$('.alert').html('Error Downloading World Bank Data');			
 			}
 			else {
 				generateGeoMap(countryData, '' + maxyear);

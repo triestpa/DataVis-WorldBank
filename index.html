@@ -19,24 +19,73 @@
 google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motionchart']});
 		google.setOnLoadCallback(init);
 		</script>
-		<title></title>
+		<title>Connected World</title>
 	</head>
 	<body>
-		
-		<div class="jumbotron">
-			<div class="container">
-				<h1>
-					Connected World
-				</h1>
-				<p>
-					there will be a blurb here
-				</p>
-				<p>
-					<a class="btn btn-primary btn-lg" role="button" href="http://data.worldbank.org/" target="_blank">Where is the data from?</a>
-				</p>
-			</div>
+		<div id="carousel-example-generic" class="carousel slide">
+		  <ol class="carousel-indicators">
+		    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+		    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+		    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+		  </ol>
+
+		  <div class="carousel-inner">
+		    <div class="item active">
+		      	<div class="jumbotron">
+					<div class="container">
+						<h1>
+							Connected World
+						</h1>
+						<p>
+							there will be a blurb here
+						</p>
+						<p>
+							<a class="btn btn-primary btn-lg" role="button" href="http://data.worldbank.org/" target="_blank">Where is the data from?</a>
+						</p>
+					</div>
+				</div>
+				<div class="bg"></div>
+		    </div>
+		      <div class="item">
+		      	<div class="jumbotron">
+					<div class="container">
+						<h1>
+							Slide 2
+						</h1>
+						<p>
+							More information here
+						</p>
+						<p>
+							<a class="btn btn-primary btn-lg" role="button" href="http://data.worldbank.org/" target="_blank">Where is the data from?</a>
+						</p>
+					</div>
+				</div>
+				<div class="bg"></div>
+		    </div>
+		      <div class="item">
+		      	<div class="jumbotron">
+					<div class="container">
+						<h1>
+							Slide 3
+						</h1>
+						<p>
+							Even more info here!
+						</p>
+						<p>
+							<a class="btn btn-primary btn-lg" role="button" href="http://data.worldbank.org/" target="_blank">Where is the data from?</a>
+						</p>
+					</div>
+				</div>
+				<div class="bg"></div>
+		    </div>
+		  </div>
+		  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+		    <span class="glyphicon glyphicon-chevron-left"></span>
+		  </a>
+		  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+		    <span class="glyphicon glyphicon-chevron-right"></span>
+		  </a>
 		</div>
-		<div class="bg"></div>
 		<div class="well well-sm">
 			<h3>Status: </h3>
 			<div class="row">
