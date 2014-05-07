@@ -1,5 +1,5 @@
 #year-slider {
-	width: 400px;
+	width: 300px;
 }
 
 #slider-row {
@@ -61,5 +61,15 @@ body {
 }
 
 h3 {
-		font-family: 'Play', sans-serif;
+	font-family: 'Play', sans-serif;
+}
+
+.map-well {
+	background-color: #E0E0E0;
+}
+
+#map-button {
+height: 40px;
+margin-right: -80px;
+background-color: #E0E0E0;
 }

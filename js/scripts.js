@@ -211,7 +211,7 @@ function generateMotionChart(data) {
 	dataTable2.addColumn('date', 'Date');
 	dataTable2.addColumn('number', 'Internet Users(per 100 people)');
 	dataTable2.addColumn('number', 'Population');
-	dataTable2.addColumn('number', 'GDP(PPP) per Capita');
+	dataTable2.addColumn('number', 'GDP (PPP) per Capita');
 	dataTable2.addColumn('number', 'Cellular Subscriptions(per 100 people)');
 
 
