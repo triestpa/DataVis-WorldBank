@@ -28,6 +28,10 @@ body {
 	font-family: 'Play', sans-serif;
 }
 
+.jumbotron p a {
+	color: yellow;
+}
+
 .highlight {
 	color: yellow;
 	font-weight: 400;

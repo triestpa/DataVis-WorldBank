@@ -27,7 +27,7 @@ function init() {
 	});
 
 	$('.carousel').carousel({
-  			interval: 8000,
+  			interval: 10000,
   			pause: 'false'
 		});
 
