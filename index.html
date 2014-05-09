@@ -33,10 +33,13 @@ google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motion
 							<h1>
 								A Connected Globe
 							</h1>
-							<ul>
-								<li> We are in a digital revolution </li>
-								<li> Internet access is rapidly shifting from being a luxury good to a necessity good</li>
-							</ul>
+							<div class="infolist">
+								<br>
+								<p> We are in a <span class="highlight">digital revolution</span>.</p>
+									<p>In 2013 more than <span class="highlight">40% of all humans</span> are connected on the internet.</p> 
+									 <p>Global internet access is growing at a rate of more than <span class="highlight">213,000,000 people of per year.</span></p>
+									 <br>
+							</div>
 								<a class="btn btn-primary btn-lg" role="button" href="http://data.worldbank.org/" target="_blank">Where is the data from?</a>
 						</div>
 					</div>
@@ -46,15 +49,15 @@ google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motion
 					<div class="jumbotron">
 						<div class="container">
 							<h1>
-								The Developing World
+								The Implications
 							</h1>
-							<ul>
-							<li> The rate of connectivity increases in third-world countries over the past decade is particularly astounding, with internet access in developing countries rising from 6% of the population in 2003 to 31% in 2013.</li>
-							<li> More info here about the social, cultural, and political implications of such a shift</li>
-						</ul>
-							<p>
-								<a class="btn btn-primary btn-lg" role="button" href="http://data.worldbank.org/" target="_blank">Where is the data from?</a>
-							</p>
+							<br>
+							<div class="infolist">
+							<p>Internet access is rapidly shifting from a luxury good to a necessity good and is <span class="highlight">growing fastest in developing countries</span>, where new infrastructure and cheap hardware is making Internet accessable to more people than ever before.</p>
+							<br>
+							<p>This unprecidented level of connectivity will provide developing countries with <span class="highlight">new low-cost solutions for services</span> such as healthcare, banking, and communication.</p>
+							<br>
+						</div>
 						</div>
 					</div>
 					<div class="bg"></div>
@@ -63,14 +66,14 @@ google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motion
 					<div class="jumbotron">
 						<div class="container">
 							<h1>
-								Slide 3
+								The Data
 							</h1>
-							<p>
-								Even more info here! About the economics! ex. why I chose GDP PPP per captia, and the significance of luxery goods vs. necessity goods.
-							</p>
-							<p>
-								<a class="btn btn-primary btn-lg" role="button" href="http://data.worldbank.org/" target="_blank">Where is the data from?</a>
-							</p>
+							<div class="infolist">
+								<br>
+								<p>
+								The data displayed here is pulled live from the <a href="http://data.worldbank.org/developers" target="_blank">World Bank API</a>.  The values for internet access are likely an <span class="highlight"> underestimate in developing countries</span>, where the popularity of rented computers and prepaid subscriptions make internet access difficult to measure.
+								</p>
+						</div>
 						</div>
 					</div>
 					<div class="bg"></div>
@@ -102,10 +105,10 @@ google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motion
 		<div id="charts">
 			<div id="map_div" style="width: 900px; height: 500px;"></div>
 			<div class="row" id="slider-row">
-				<div class="col-sm-1 col-md-offset-4">
+				<div class="col-sm-1 col-md-offset-3">
 					<button type="button" class="btn btn-default" id="map-button"><span id="playicon" class="glyphicon glyphicon-play"></span></button>
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-5">
 					<div class="well well-sm map-well">
 						<div class="slider slider-horizontal" id="year-slider"></div>
 					</div>
@@ -116,7 +119,7 @@ google.load('visualization', '1', {'packages': ['geochart', 'corechart', 'motion
 							Year:
 						</p>
 						<h3 id="year-text">
-							uh-oh
+							Error
 						</h3>
 					</div>
 				</div>

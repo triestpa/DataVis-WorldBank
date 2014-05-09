@@ -28,6 +28,12 @@ body {
 	font-family: 'Play', sans-serif;
 }
 
+.highlight {
+	color: yellow;
+	font-weight: 400;
+	font-size: 34px;
+}
+
 .jumbotron {
 /*	background: url('../img/going-global-med.jpg') no-repeat center center; */
 	background: transparent;
@@ -35,6 +41,11 @@ body {
 	height: 650px;
 	color: white;
 	font-family: 'Play', sans-serif;
+	font-size: 28px;
+}
+
+.infolist p {
+	background: rgba(120,120,120,0);
 }
 
 .jumbotron h1 {
@@ -67,6 +78,7 @@ h3 {
 
 .map-well {
 	background-color: #E0E0E0;
+	width: 100%;
 }
 
 #map-button {
@@ -74,3 +86,4 @@ height: 40px;
 margin-right: -80px;
 background-color: #E0E0E0;
 }
+
