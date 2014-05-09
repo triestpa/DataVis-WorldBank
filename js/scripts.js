@@ -168,9 +168,6 @@ function queryWorldBank() {
 		},
 		success: function(data, textStatus){
 			$('#network-status').html('World Bank Data Download Successful');
-			
-			//setTimeout(function() {$(".alert").alert('close');}, 3000);
-
 			console.log(textStatus);
 			countryData = data[1];
 			if (countryData == null){
@@ -191,6 +188,10 @@ function generateGeoMap(data, year) {
 
 	var name;
 	var percent;
+
+	var prev_country;
+	var prev_value;
+
 	for(var i in data) {
 		if (data[i].indicator.id == 'IT.NET.USER.P2' && data[i].date == year) {
 			name = data[i].country.id;
@@ -200,7 +201,6 @@ function generateGeoMap(data, year) {
 			}
 		}
 	}
-
 	chart.draw(dataTable, regionOptions);
 }
 
@@ -221,6 +221,9 @@ function generateMotionChart(data) {
 	var population;
 	var gdp;
 
+	var prev_country;
+	var prev_value;
+
 	for(var i in data) {
 		if (data[i].indicator.id == 'IT.NET.USER.P2') {
 			name = data[i].country.value;
@@ -228,6 +231,11 @@ function generateMotionChart(data) {
 			percent = parseInt(data[i].value);
 			if (!isNaN(percent)) {
 				dataTable2.addRow([name, date, percent,0, 0, 0]);
+				prev_country = name;
+				prev_value = percent;
+			}
+			else if (prev_country == name){
+				dataTable2.addRow([name, date, prev_value, 0, 0, 0]);
 			}
 			else 
 				dataTable2.addRow([name, date, 0, 0, 0, 0]);
