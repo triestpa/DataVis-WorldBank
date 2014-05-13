@@ -32,6 +32,8 @@ body {
 
 .jumbotron p a {
 	color: yellow;
+		font-size: 34px;
+
 }
 
 .highlight {
@@ -48,6 +50,10 @@ body {
 	color: white;
 	font-family: 'Play', sans-serif;
 	font-size: 28px;
+}
+
+.infolist {
+	height: 350px;
 }
 
 .infolist p {
