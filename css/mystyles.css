@@ -93,3 +93,12 @@ margin-right: -80px;
 background-color: #E0E0E0;
 }
 
+
+.transbox {
+	text-align: center;
+	width: 50%;
+	font-size: 22px;
+	background-color:rgba(80,80,80,0.5);
+	color: white;
+}
+
