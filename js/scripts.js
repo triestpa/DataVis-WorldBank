@@ -14,7 +14,7 @@ var regionOptions = {};
 
 
 function init() {
-	maxyear = new Date().getFullYear() -2;
+	maxyear = 2013//new Date().getFullYear() -2;
 
 	var jumboHeight = $('.jumbotron').outerHeight();
 	function parallax(){
