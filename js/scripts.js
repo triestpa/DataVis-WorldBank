@@ -1,5 +1,6 @@
 
 
+
 var chart;
 var motionchart;
 var countryData = null;
@@ -102,8 +103,8 @@ $(".down-button").on('click', function(e) {
 	dataTable.addColumn('number', 'Internet Users(per 100 people)');
 
 	regionOptions['colorAxis'] = {'minValue': 0, 'maxValue': 100, 'colors':['#FFFFFF','#E6F0FF','#CCE0FF','#B2D1FF','#99C2FF','#80B2FF','#66A3FF','#4D94FF','#3385FF','#1975FF','#0066FF','#005CE6','#0047B2','#003D99','#003380','#002966','#001F4C','#001433']};
-	regionOptions['width'] = '1000';  
-	regionOptions['height'] = '600'; 
+	regionOptions['width'] = '1000';
+	regionOptions['height'] = '600';
 	regionOptions['backgroundColor'] = 'transparent';
 
 	chart.draw(dataTable, regionOptions);
@@ -116,7 +117,7 @@ $(".down-button").on('click', function(e) {
 	$('#loading-modal').modal('show');
 	*/
 
-//	$('.alert').hide()			
+//	$('.alert').hide()
 
 
 loadFromCache();
@@ -133,22 +134,24 @@ function slide(year) {
 
 
 function loadFromCache() {
-		$('#cache-status').html('Loading From Cache . . . ');			
+		$('#cache-status').html('Loading From Cache . . . ');
 		$.getJSON('data/datacache.json', function(json) {
 			countryData = json[1];
 			if (countryData == null){
-				$('.alert').html('Error Loading Data From Cache');			
+				console.log("DataCache is null");
+				$('.alert').html('Error Loading Data From Cache');
 			}
 			else {
-				generateGeoMap(countryData, '' + 2012);
+				generateGeoMap(countryData, '' + maxyear);
 				generateMotionChart(countryData);
 			}
 		})
 		.done(function() {
-				$('#cache-status').html('Cache Data Loaded Successfully');			
-  })
-  .fail(function() {
-				$('#cache-status').html('Error Loading Data From Cache');			
+				$('#cache-status').html('Cache Data Loaded Successfully');
+  		})
+  		.fail(function(jqXHR, textStatus, errorThrown) {
+  				console.log("Data Cache error: " + textStatus);
+				$('#cache-status').html('Error Loading Data From Cache');
   });
 
 }
@@ -168,21 +171,21 @@ function queryWorldBank() {
 		url: combined_url,
 		async: true,
 		cache: true,
-		jsonpCallback: 'done',    
+		jsonpCallback: 'done',
 		contentType: "text/json; charset=utf-8",
 		dataType: "jsonp", crossDomain: true,
-		error: function(xhr, textStatus, errorThrown){ 
-			$('.alert').html('Error Downloading Data');			
+		error: function(xhr, textStatus, errorThrown){
+			$('.alert').html('Error Downloading Data');
 			console.log(textStatus + errorThrown);
 			$('#loading-modal').modal('hide');
-			$('.alert').show()			
+			$('.alert').show()
 		},
 		success: function(data, textStatus){
 			$('#network-status').html('World Bank Data Download Successful');
 			console.log(textStatus);
 			countryData = data[1];
 			if (countryData == null){
-				$('.alert').html('Error Downloading World Bank Data');			
+				$('.alert').html('Error Downloading World Bank Data');
 			}
 			else {
 				generateGeoMap(countryData, '' + maxyear);
@@ -224,7 +227,6 @@ function generateMotionChart(data) {
 	dataTable2.addColumn('number', 'Population');
 	dataTable2.addColumn('number', 'GDP (PPP) per Capita');
 	dataTable2.addColumn('number', 'Cellular Subscriptions(per 100 people)');
-
 
 	var name;
 	var date;
